@@ -1,24 +1,32 @@
-import { ref } from '../config/firebaseConfig';
-import simulateIoTData from '../utils/simulateIoTData';
+import db from "../config/firebaseConfig.js";
+import { simulateIoTData } from "../utils/simulateIoTData.js";
+
+const iotData = db.ref("iotData");
 
 const sendIoTDataToFirebase = () => {
   const data = simulateIoTData();
-  ref('iotData').push(data);
+  iotData.push(data);
 };
 
 const getCurrentStatus = async () => {
-  const snapshot = await ref('iotData')
-    .orderByKey()
-    .limitToLast(1)
-    .once('value');
+  const snapshot = await iotData.orderByKey().limitToLast(1).once("value");
   let currentStatus = {};
   snapshot.forEach((snap) => (currentStatus = snap.val()));
   return currentStatus;
 };
 
 const getStatusHistory = async () => {
-  const snapshot = await ref('iotData').once('value');
+  const snapshot = await iotData.once("value");
   return snapshot.val();
 };
 
-export default { sendIoTDataToFirebase, getCurrentStatus, getStatusHistory };
+const deleteAllData = async () => {
+  await iotData.remove();
+};
+
+export {
+  sendIoTDataToFirebase,
+  getCurrentStatus,
+  getStatusHistory,
+  deleteAllData,
+};

@@ -1,14 +1,10 @@
-import {
-  initializeApp,
-  credential as _credential,
-  database,
-} from 'firebase-admin';
-import serviceAccount from './serviceAccountKey.json'; // Replace with the path to your Firebase service account key
+import admin from "firebase-admin";
+import serviceAccount from "./serviceAccountKey.json" assert { type: "json" }; // Replace with the path to your Firebase service account key
 
-initializeApp({
-  credential: _credential.cert(serviceAccount),
-  databaseURL: 'https://your-database-url.firebaseio.com', // Replace with your Firebase database URL
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "YOUR_DATABSE_URL", // Replace with your Firebase database URL
 });
 
-const db = database();
+const db = admin.database();
 export default db;

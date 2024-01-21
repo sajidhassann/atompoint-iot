@@ -1,8 +1,11 @@
-import { Router } from 'express';
+import { Router } from "express";
 const router = Router();
-import { getCurrentStatus, getStatusHistory } from '../services/iotDataService';
+import {
+  getCurrentStatus,
+  getStatusHistory,
+} from "../services/iotDataService.js";
 
-router.get('/status', async (req, res) => {
+router.get("/status", async (req, res) => {
   try {
     const currentStatus = await getCurrentStatus();
     res.json(currentStatus);
@@ -11,7 +14,7 @@ router.get('/status', async (req, res) => {
   }
 });
 
-router.get('/history', async (req, res) => {
+router.get("/history", async (req, res) => {
   try {
     const history = await getStatusHistory();
     res.json(history);

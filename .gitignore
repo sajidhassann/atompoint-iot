@@ -25,3 +25,6 @@ dist-ssr
 
 # fireabse config
 *serviceAccountKey.json
+
+# deploy app
+app
